@@ -17,7 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 
 public class Login extends AppCompatActivity {
 
@@ -52,7 +52,6 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                progressBar.setVisibility(View.VISIBLE);
                 String email, password;
                 email = String.valueOf(editTextEmail.getText());
                 password = String.valueOf(editTextPassword.getText());
@@ -63,7 +62,7 @@ public class Login extends AppCompatActivity {
                     return;
                 }
 
-
+                progressBar.setVisibility(View.VISIBLE);
                 mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
@@ -80,11 +79,11 @@ public class Login extends AppCompatActivity {
                                     finish();
 
                                 } else {
-                                    Toast.makeText(
-                                            Login.this,
-                                            "Usuário não cadastrado.",
-                                            Toast.LENGTH_SHORT).show();
-                                }
+                                        Toast.makeText(
+                                                Login.this,
+                                                "Erro ao fazer login. Verifique suas credenciais.",
+                                                Toast.LENGTH_SHORT).show();
+                                    }
                             }
                         });
             }
