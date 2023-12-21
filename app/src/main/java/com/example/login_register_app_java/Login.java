@@ -84,6 +84,7 @@ public class Login extends AppCompatActivity {
                                             Login.this,
                                             "Logado com sucesso!",
                                             Toast.LENGTH_SHORT).show();
+
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     startActivity(intent);
                                     finish();
@@ -100,24 +101,3 @@ public class Login extends AppCompatActivity {
         });
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
