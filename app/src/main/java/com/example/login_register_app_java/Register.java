@@ -28,17 +28,6 @@ public class Register extends AppCompatActivity {
     TextView textView;
 
     @Override
-    public void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if (currentUser != null) {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
-
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
@@ -62,18 +51,24 @@ public class Register extends AppCompatActivity {
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
                 String email, password;
                 email = String.valueOf(editTextEmail.getText());
                 password = String.valueOf(editTextPassword.getText());
 
                 if (TextUtils.isEmpty(email) || (TextUtils.isEmpty(password))) {
-
                     Toast.makeText(Register.this, "Enter Email/Password", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
+                if (password.length() < 6) {
+                    Toast.makeText(
+                            Register.this,
+                            "Senha deve ter mais de 5 caracteres",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
+                progressBar.setVisibility(View.VISIBLE);
                 mAuth.createUserWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
@@ -84,14 +79,13 @@ public class Register extends AppCompatActivity {
                                             Register.this,
                                             "Conta criada com sucesso!",
                                             Toast.LENGTH_SHORT).show();
-
                                     Intent intent = new Intent(getApplicationContext(), Login.class);
                                     startActivity(intent);
                                     finish();
                                 } else {
                                     Toast.makeText(
                                             Register.this,
-                                            "A autenticação falhou",
+                                            "Tente novamente.",
                                             Toast.LENGTH_SHORT).show();
                                 }
                             }

@@ -28,16 +28,6 @@ public class Login extends AppCompatActivity {
     TextView textView;
 
     @Override
-    public void onStart() {
-        super.onStart();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
-    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
@@ -73,6 +63,7 @@ public class Login extends AppCompatActivity {
                     return;
                 }
 
+
                 mAuth.signInWithEmailAndPassword(email, password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
@@ -84,7 +75,6 @@ public class Login extends AppCompatActivity {
                                             Login.this,
                                             "Logado com sucesso!",
                                             Toast.LENGTH_SHORT).show();
-
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     startActivity(intent);
                                     finish();
@@ -92,7 +82,7 @@ public class Login extends AppCompatActivity {
                                 } else {
                                     Toast.makeText(
                                             Login.this,
-                                            "Falha ao logar.",
+                                            "Usuário não cadastrado.",
                                             Toast.LENGTH_SHORT).show();
                                 }
                             }

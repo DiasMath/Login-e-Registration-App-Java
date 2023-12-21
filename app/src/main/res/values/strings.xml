@@ -8,4 +8,5 @@
     <string name="clique_para_se_registrar">Clique para se registrar</string>
     <string name="clique_para_logar">Clique para logar</string>
     <string name="logout">Logout</string>
+    <string name="registrar">Registrar</string>
 </resources>
